@@ -5,10 +5,10 @@ import { UsersModule } from './users/users.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
 // import { TypegooseModule, getConnectionToken } from 'nestjs-typegoose' // RG
-import { TypegooseModule, getConnectionToken } from '@m8a/nestjs-typegoose' // GPT
+import { TypegooseModule } from 'nestjs-typegoose' // GPT
 import { getMongoConfig } from './config/mongo.config'
-import { Connection } from 'mongoose'
-import { AuthModule } from './auth/auth.module';
+// import { Connection } from 'mongoose'
+import { AuthModule } from './auth/auth.module'
 
 // const configService = new ConfigService()
 
@@ -26,23 +26,23 @@ import { AuthModule } from './auth/auth.module';
 	controllers: [AppController],
 	providers: [AppService],
 })
-// export class AppModule {}
-export class AppModule implements OnModuleInit {
-	constructor(
-		@Inject(getConnectionToken()) private readonly connection: Connection
-	) {}
+export class AppModule {}
+// export class AppModule implements OnModuleInit {
+// 	constructor(
+// 		@Inject(getConnectionToken()) private readonly connection: Connection
+// 	) {}
 
-	onModuleInit() {
-		this.connection.on('connected', () => {
-			console.log('Mongoose connected to DB')
-		})
+// 	onModuleInit() {
+// 		this.connection.on('connected', () => {
+// 			console.log('Mongoose connected to DB')
+// 		})
 
-		this.connection.on('error', (err) => {
-			console.error('Mongoose connection error:', err)
-		})
+// 		this.connection.on('error', (err) => {
+// 			console.error('Mongoose connection error:', err)
+// 		})
 
-		this.connection.on('disconnected', () => {
-			console.log('Mongoose disconnected')
-		})
-	}
-}
+// 		this.connection.on('disconnected', () => {
+// 			console.log('Mongoose disconnected')
+// 		})
+// 	}
+// }

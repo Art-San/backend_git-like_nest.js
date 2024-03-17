@@ -24,6 +24,9 @@ export class UserModel extends TimeStamps {
 	@prop({ default: '' })
 	name: string
 
+	@prop({ default: '' })
+	email: string
+
 	@prop({ required: true })
 	profileUrl: string
 

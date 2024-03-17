@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { AuthDto } from './dto/auth.dto'
-import { InjectModel } from '@m8a/nestjs-typegoose'
+import { InjectModel } from 'nestjs-typegoose'
 import { UserModel } from 'src/users/users.model'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 
@@ -11,7 +11,15 @@ export class AuthService {
 	) {}
 
 	async register(dto: AuthDto) {
-		const oldUser = await this.userModel.findOne({ email: dto.email })
+		console.log(1, 'dto', dto.username)
+
+		try {
+			const oldUser = await this.userModel.findOne({ username: dto.username })
+			console.log(2, '1oldUser', oldUser)
+		} catch (error) {
+			console.log(3, 'error', error.message)
+			return { message: error.message }
+		}
 		// if (oldUser) {
 		// 	return (message: 'Юзер с таким email есть уже в системе')
 		// }

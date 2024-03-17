@@ -1,4 +1,4 @@
-import { InjectModel } from '@m8a/nestjs-typegoose'
+import { InjectModel } from 'nestjs-typegoose'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { UserModel } from './users.model'

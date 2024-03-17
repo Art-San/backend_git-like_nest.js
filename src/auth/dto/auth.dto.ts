@@ -8,6 +8,9 @@ export class AuthDto {
 	username: string
 
 	@IsString()
+	email: string
+
+	@IsString()
 	profileUrl: string
 
 	@IsString()
