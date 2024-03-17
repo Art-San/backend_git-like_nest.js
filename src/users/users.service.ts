@@ -1,10 +1,18 @@
+import { InjectModel } from '@m8a/nestjs-typegoose'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { UsersModel } from './users.model'
+import { ModelType } from '@typegoose/typegoose/lib/types' // RG
+// import { Model } from 'mongoose'  // GPT
 
 const configService = new ConfigService()
 
 @Injectable()
 export class UsersService {
+	constructor(
+		@InjectModel(UsersModel) private userModel: ModelType<UsersModel>
+	) {} // RG
+	// constructor(@InjectModel(User) private userModel: Model<User>) {} // GPT
 	async getProfile(username: string) {
 		try {
 			const userRes = await fetch(`https://api.github.com/users/${username}`, {
@@ -15,7 +23,8 @@ export class UsersService {
 
 			const userProfile = await userRes.json()
 
-			const repoRes = await fetch(userProfile.repos_url, {
+			const repoRes = await fetch(`${userProfile.repos_url}?per_page=1`, {
+				// const repoRes = await fetch(userProfile.repos_url), {
 				// headers: {
 				// 	authorization: configService.get<string>('GITHUB_API_KEY_30DAY'),
 				// },
@@ -30,3 +39,4 @@ export class UsersService {
 }
 
 // https://api.github.com/users/Art-San
+// https://api.github.com/users/Art-San/repos?per_page=1

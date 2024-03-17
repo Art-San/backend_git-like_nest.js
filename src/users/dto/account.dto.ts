@@ -1,16 +1,6 @@
-// import { ApiProperty } from '@nestjs/swagger'
-// import { IUser, Repository } from 'src/types/types.all'
-
-// export class UserProfileResponseDto {
-// 	@ApiProperty({ type: () => IUser })
-// 	userProfile: IUser
-
-// 	@ApiProperty({ type: () => [Repository] })
-// 	repos: Repository[]
-// }
-
 import { ApiProperty } from '@nestjs/swagger'
-import { RepositoryClass, UserClass } from 'src/types/types.all'
+import { RepositoryClass } from 'src/types/repository.class'
+import { UserClass } from 'src/types/user.class'
 
 export class UserProfileResponseDto {
 	@ApiProperty({ type: () => UserClass })
@@ -18,7 +8,16 @@ export class UserProfileResponseDto {
 
 	@ApiProperty({ type: () => [RepositoryClass] })
 	repos: RepositoryClass[]
-
-	// @ApiProperty({ type: () => [Repository] })
-	// repos: Repository[]
 }
+
+// "IUser1 & IRepository1" относится только к типу, но используется здесь как значение.
+// import { ApiProperty } from '@nestjs/swagger'
+// import { IUser1, IRepository1 } from 'src/types/types.all'
+
+// export class UserProfileResponseDto {
+// 	@ApiProperty({ type: () => IUser1 })
+// 	userProfile: IUser1
+
+// 	@ApiProperty({ type: () => [IRepository1] })
+// 	repos: IRepository1[]
+// }
