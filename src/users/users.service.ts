@@ -1,7 +1,7 @@
 import { InjectModel } from '@m8a/nestjs-typegoose'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { UsersModel } from './users.model'
+import { UserModel } from './users.model'
 import { ModelType } from '@typegoose/typegoose/lib/types' // RG
 // import { Model } from 'mongoose'  // GPT
 
@@ -10,7 +10,7 @@ const configService = new ConfigService()
 @Injectable()
 export class UsersService {
 	constructor(
-		@InjectModel(UsersModel) private userModel: ModelType<UsersModel>
+		@InjectModel(UserModel) private userModel: ModelType<UserModel>
 	) {} // RG
 	// constructor(@InjectModel(User) private userModel: Model<User>) {} // GPT
 	async getProfile(username: string) {

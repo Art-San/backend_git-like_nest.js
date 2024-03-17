@@ -15,9 +15,9 @@ export class LikedByClass implements LikedBy {
 	likedDate: Date
 }
 
-export interface UsersModel extends Base {} // Base добавляет id
+export interface UserModel extends Base {} // Base добавляет id
 
-export class UsersModel extends TimeStamps {
+export class UserModel extends TimeStamps {
 	@prop({ required: true, unique: true })
 	username: string
 
@@ -39,4 +39,4 @@ export class UsersModel extends TimeStamps {
 }
 
 // Пример использования модели
-const UserModel = getModelForClass(UsersModel)
+const userModel = getModelForClass(UserModel)
