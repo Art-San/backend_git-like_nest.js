@@ -6,7 +6,7 @@
 // }
 
 import { Injectable } from '@nestjs/common'
-import { InjectModel } from 'nestjs-typegoose'
+import { InjectModel } from '@m8a/nestjs-typegoose'
 import { Product } from './product.model'
 
 @Injectable()

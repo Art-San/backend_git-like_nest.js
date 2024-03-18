@@ -1,61 +1,54 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { AuthDto } from './dto/auth.dto'
-import { InjectModel } from 'nestjs-typegoose'
+import { AuthDto, ILogin } from './dto/auth.dto'
+import { InjectModel } from '@m8a/nestjs-typegoose'
 import { UserModel } from 'src/users/users.model'
 import { ModelType } from '@typegoose/typegoose/lib/types'
+import { AuthModel } from './auth.model'
 
 @Injectable()
 export class AuthService {
 	constructor(
-		@InjectModel(UserModel) private readonly userModel: ModelType<UserModel>
+		@InjectModel(AuthModel) private readonly authModel: ModelType<AuthModel>
 	) {}
 
-	async register(dto: AuthDto) {
-		console.log(0, process.env.MONGO_DB_URI)
-		console.log(1, 'dto', dto.username)
+	async login(dto: ILogin) {
+		const user = await this.authModel.findOne({ email: dto.email })
 
-		try {
-			const oldUser = await this.userModel.findOne({ username: dto.username })
-			console.log(2, '1oldUser', oldUser)
-		} catch (error) {
-			console.log(3, 'error', error.message)
-			return { message: error.message }
-		}
-		// if (oldUser) {
-		// 	return (message: 'Юзер с таким email есть уже в системе')
-		// }
-
-		// const newUser = new this.userModel({
-		// 	email: dto.email,
-		// 	password: await hash(dto.password, salt),
-		// })
-		// const user = await newUser.save()
-
-		return { message: 'В базе user' }
-	}
-
-	async login(dto: AuthDto) {
-		// return this.validateUser(dto)
-		const user = await this.validateUser(dto)
-
-		return {
-			user: user,
-		}
-	}
-
-	async validateUser(dto: AuthDto): Promise<UserModel> {
-		const user = await this.userModel.findOne({ email: dto.email })
 		if (!user) {
-			throw new UnauthorizedException('Юзер с таким email нет в системе')
+			return { message: `Нет такого юзера ${dto.email}` }
 		}
 
 		return user
+		// return { message: `Привет ${user.username}` }
+	}
+
+	async register(dto: AuthDto) {
+		try {
+			const oldUser = await this.authModel.findOne({ username: dto.username })
+			if (oldUser) {
+				return { message: 'Юзер с таким email есть уже в системе' }
+			}
+			const newUser = new this.authModel({
+				name: dto.name,
+				username: dto.username,
+				email: dto.email,
+				profileUrl: dto.profileUrl,
+				avatarUrl: dto.avatarUrl,
+			})
+
+			const user = await newUser.save()
+
+			return user
+			// return newUser
+		} catch (error) {
+			return { message: error.message }
+		}
 	}
 
 	async getHello(test: string) {
 		console.log(1, 'test1', test)
 		try {
-			const oldUser = await this.userModel.findOne({ username: test })
+			const oldUser = await this.authModel.findOne({ username: test })
 			console.log(2, '1oldUser', oldUser)
 			return oldUser
 		} catch (error) {

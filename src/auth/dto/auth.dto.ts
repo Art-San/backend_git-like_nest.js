@@ -1,5 +1,9 @@
 import { IsString } from 'class-validator'
 
+export interface ILogin {
+	email: string
+}
+
 export class AuthDto {
 	@IsString()
 	name: string
