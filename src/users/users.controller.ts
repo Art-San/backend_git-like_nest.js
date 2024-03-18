@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Param } from '@nestjs/common'
+import { Controller, Get, Post, Param, Body } from '@nestjs/common'
 import { ApiOkResponse, ApiProperty } from '@nestjs/swagger'
 import { UsersService } from './users.service'
 import { UserProfileResponseDto } from './dto/account.dto'
+import { AuthDto } from 'src/auth/dto/auth.dto'
 
 @Controller('users')
 export class UsersController {

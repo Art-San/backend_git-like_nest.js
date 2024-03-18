@@ -6,7 +6,7 @@ import { ModelType } from '@typegoose/typegoose/lib/types' // RG
 // import { Model } from 'mongoose'  // GPT
 
 const configService = new ConfigService()
-
+// @nestjs/common@"^6.10.1 || ^7.0.0" from nestjs-typegoose@7.1.38
 @Injectable()
 export class UsersService {
 	constructor(
