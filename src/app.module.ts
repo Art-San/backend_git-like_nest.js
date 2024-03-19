@@ -10,7 +10,9 @@ import { TypegooseModule, getConnectionToken } from '@m8a/nestjs-typegoose' // G
 import { getMongoConfig } from './config/mongo.config'
 import { Connection } from 'mongoose'
 import { AuthModule } from './auth/auth.module'
-import { ProductModule } from './product/product.module'
+import { AllExceptionsFilter } from './filters/all-exceptions.filter'
+import { APP_FILTER } from '@nestjs/core'
+import { ExploreModule } from './explore/explore.module';
 
 // const configService = new ConfigService()
 
@@ -24,10 +26,16 @@ import { ProductModule } from './product/product.module'
 		}),
 		UsersModule,
 		AuthModule,
-		ProductModule,
+		ExploreModule,
 	],
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [
+		{
+			provide: APP_FILTER,
+			useClass: AllExceptionsFilter,
+		},
+		AppService,
+	],
 })
 // export class AppModule {}
 export class AppModule implements OnModuleInit {

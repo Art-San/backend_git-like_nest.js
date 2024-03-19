@@ -36,10 +36,8 @@ export class UserModel extends TimeStamps {
 	@prop({ type: [String], default: [] })
 	likedProfiles: string[]
 
-	// Использование класса LikedByClass в декораторе @prop
 	@prop({ type: () => [LikedByClass] })
 	likedBy: LikedByClass[]
 }
 
-// Пример использования модели
 const userModel = getModelForClass(UserModel)

@@ -7,31 +7,40 @@ import {
 	Post,
 	Body,
 	Param,
+	Res,
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { AuthService } from './auth.service'
-import { AuthDto, ILogin } from './dto/auth.dto'
+import { AuthDto, loginDto } from './dto/auth.dto'
+import { ApiOkResponse } from '@nestjs/swagger'
+import { Response } from 'express'
 
 @Controller('auth')
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
+
 	@Get('github')
 	@UseGuards(AuthGuard('github'))
 	async githubAuth(@Req() req) {}
 
 	@Get('github/callback')
 	@UseGuards(AuthGuard('github'))
-	async githubAuthRedirect(@Req() req) {
-		return this.authService.register(req.user)
+	async githubAuthRedirect(@Req() req, @Res() res: Response) {
+		const result = await this.authService.register(req.user)
+		/*TODO: ТУТ порядок надо делать*/
+		if (result) {
+			res.redirect('/')
+		} else {
+			res.redirect('/test1')
+		}
 	}
 
-	@Get('/login')
-	async login(@Body() dto: ILogin) {
-		return this.authService.login(dto)
-	}
-
-	@Get('/test/:test')
-	getHello(@Param('test') test: string) {
-		return this.authService.getHello(test)
+	@Post('/login')
+	@ApiOkResponse({ type: AuthDto })
+	async login(
+		@Body() body: loginDto,
+		@Res({ passthrough: true }) res: Response
+	) {
+		return this.authService.login(body)
 	}
 }
