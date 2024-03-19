@@ -7,23 +7,14 @@ export class ExploreService {
 	async explorePopularRepos(language: string) {
 		try {
 			const response = await fetch(
-				`https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=10`,
+				`https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=2`,
 				{
 					//   headers: {
 					//     authorization: `token ${process.env.GITHUB_API_KEY_30DAY}`
 					//   }
 				}
 			)
-			console.log(
-				1,
-				'process.env.GITHUB_API_KEY_30DAY',
-				process.env.GITHUB_API_KEY_30DAY
-			)
-			console.log(
-				1,
-				'process.env.GITHUB_API_KEY_30DAY',
-				this.configService.get('process.env.GITHUB_API_KEY_30DAY')
-			)
+			console.log(1, this.configService.get('GITHUB_API_KEY_30DAY'))
 
 			const repos = await response.json()
 

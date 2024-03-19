@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
 import * as dotenv from 'dotenv'
 
-dotenv.config()
+dotenv.config() // Вар-3 process.env
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule)

@@ -93,11 +93,11 @@ export class RepositoryClass1 implements IRepository1 {
 }
 
 // ------------   из Минина ------------
-// export interface ServerRespons<T> {
-// 	total_count: number
-// 	incomplete_results: boolean
-// 	items: T[]
-// }
+export interface ServerResponseLanguage<T> {
+	total_count: number
+	incomplete_results: boolean
+	items: T[]
+}
 
 // export interface IOwner {
 // 	login: string

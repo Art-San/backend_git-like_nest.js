@@ -4,6 +4,7 @@ import { InjectModel } from '@m8a/nestjs-typegoose'
 
 import { ModelType } from '@typegoose/typegoose/lib/types'
 import { AuthModel } from './auth.model'
+import { Response } from 'express'
 
 @Injectable()
 export class AuthService {
@@ -23,7 +24,7 @@ export class AuthService {
 		// return { message: `Привет ${user.username}` }
 	}
 
-	async register(dto: AuthDto) {
+	async register(dto: AuthDto, res: Response) {
 		try {
 			const oldUser = await this.authModel.findOne({ username: dto.username })
 			if (oldUser) {

@@ -12,13 +12,15 @@ import { Connection } from 'mongoose'
 import { AuthModule } from './auth/auth.module'
 import { AllExceptionsFilter } from './filters/all-exceptions.filter'
 import { APP_FILTER } from '@nestjs/core'
-import { ExploreModule } from './explore/explore.module';
+import { ExploreModule } from './explore/explore.module'
 
-// const configService = new ConfigService()
+// const configService = new ConfigService() // Вар-1 .ENV
 
 @Module({
 	imports: [
-		ConfigModule.forRoot(),
+		ConfigModule.forRoot({
+			isGlobal: true, //Вар-2.1 .ENV Это делает ConfigModule глобальным, и его не нужно импортировать в каждый модуль
+		}),
 		TypegooseModule.forRootAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],

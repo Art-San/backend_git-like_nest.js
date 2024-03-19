@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { ExploreController } from './explore.controller'
 import { ExploreService } from './explore.service'
-import { ConfigService } from '@nestjs/config'
 
 @Module({
-	imports: [ConfigService],
+	imports: [],
+	// imports: [ConfigModule], //Вар-2.2 .ENV
 	controllers: [ExploreController],
 	providers: [ExploreService],
 })

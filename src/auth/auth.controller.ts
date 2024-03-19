@@ -25,8 +25,11 @@ export class AuthController {
 
 	@Get('github/callback')
 	@UseGuards(AuthGuard('github'))
-	async githubAuthRedirect(@Req() req, @Res() res: Response) {
-		const result = await this.authService.register(req.user)
+	async githubAuthRedirect(
+		@Req() req,
+		@Res({ passthrough: true }) res: Response // passthrough: true Обязательная штука
+	) {
+		const result = await this.authService.register(req.user, res)
 		/*TODO: ТУТ порядок надо делать*/
 		if (result) {
 			res.redirect('/')
@@ -39,7 +42,7 @@ export class AuthController {
 	@ApiOkResponse({ type: AuthDto })
 	async login(
 		@Body() body: loginDto,
-		@Res({ passthrough: true }) res: Response
+		@Res({ passthrough: true }) res: Response // passthrough: true Обязательная штука
 	) {
 		return this.authService.login(body)
 	}
