@@ -1,14 +1,12 @@
 // auth.module.ts
 import { Module } from '@nestjs/common'
 import { PassportModule } from '@nestjs/passport'
-
 import { AuthService } from './auth.service'
 import { AuthController } from './auth.controller'
 import { GithubStrategy } from './passport/github.strategy'
-import { TypegooseModule } from '@m8a/nestjs-typegoose'
-
 import { ConfigModule } from '@nestjs/config'
-import { AuthModel } from './auth.model'
+import { UserModel } from 'src/users/users.model'
+import { TypegooseModule } from '@m8a/nestjs-typegoose'
 
 @Module({
 	controllers: [AuthController],
@@ -16,7 +14,7 @@ import { AuthModel } from './auth.model'
 		PassportModule,
 		TypegooseModule.forFeature([
 			{
-				typegooseClass: AuthModel,
+				typegooseClass: UserModel,
 				schemaOptions: {
 					collection: 'Users',
 				},

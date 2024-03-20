@@ -30,15 +30,7 @@ export class AuthController {
 		@Req() req,
 		@Res({ passthrough: true }) res: Response // passthrough: true Обязательная штука
 	) {
-		console.log(1, 'github/callback', req)
-		const result = await this.authService.register(req.user, res)
-
-		/*TODO: ТУТ порядок надо делать*/
-		if (result) {
-			res.redirect('/test')
-		} else {
-			res.redirect('/test1')
-		}
+		res.redirect('/test')
 	}
 
 	@Get('check')
@@ -48,13 +40,14 @@ export class AuthController {
 		return this.authService.check(req, res)
 	}
 
-	@Get('logout')
-	@ApiOkResponse()
-	async logout(@Req() req, @Res({ passthrough: true }) res: Response) {
-		// const result = this.authService.logout(req, res)
-	}
+	// @Get('logout')
+	// @ApiOkResponse()
+	// async logout(@Req() req, @Res({ passthrough: true }) res: Response) {
+	// 	// const result = this.authService.logout(req, res)
+	// }
 
 	@Get('session')
+	// http://localhost:3000/api/auth/session
 	findAll(@Session() session: Record<string, any>) {
 		session.visits = session.visits ? session.visits + 1 : 4
 		console.log(session.visits)

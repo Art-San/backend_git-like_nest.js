@@ -1,10 +1,26 @@
+import passport from 'passport'
 import { Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { Profile, Strategy as GitHubStrategy } from 'passport-github2'
 
+import { InjectModel } from '@m8a/nestjs-typegoose'
+import { ModelType } from '@typegoose/typegoose/lib/types'
+import { UserModel } from 'src/users/users.model'
+
+// Настройка Passport.js
+// passport.serializeUser(function (user, done) {
+// 	done(null, user)
+// })
+
+// passport.deserializeUser(function (obj, done) {
+// 	done(null, obj)
+// })
+
 @Injectable()
 export class GithubStrategy extends PassportStrategy(GitHubStrategy, 'github') {
-	constructor() {
+	constructor(
+		@InjectModel(UserModel) private readonly userModel: ModelType<UserModel>
+	) {
 		super({
 			clientID: process.env.GITHUB_ID,
 			clientSecret: process.env.GITHUB_SECRET,
@@ -20,17 +36,23 @@ export class GithubStrategy extends PassportStrategy(GitHubStrategy, 'github') {
 		// profile: any,
 		done: Function
 	) {
-		const user = {
-			name: profile.displayName,
-			username: profile.username,
-			email: profile.emails[0].value,
-			profileUrl: profile.profileUrl,
-			avatarUrl: profile.photos[0].value,
-			likedProfiles: [],
-			likedBy: [],
+		console.log(1, 'profile.username', profile.username)
+		const user = await this.userModel.findOne({ username: profile.username })
+		if (!user) {
+			const newUser = new this.userModel({
+				name: profile.displayName,
+				username: profile.username,
+				email: profile.emails[0].value,
+				profileUrl: profile.profileUrl,
+				avatarUrl: profile.photos[0].value,
+				likedProfiles: [],
+				likedBy: [],
+			})
+			await newUser.save()
+			done(null, newUser)
+		} else {
+			done(null, user)
 		}
-
-		done(null, user)
 	}
 }
 

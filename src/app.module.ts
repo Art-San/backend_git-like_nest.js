@@ -59,3 +59,27 @@ export class AppModule implements OnModuleInit {
 		})
 	}
 }
+
+// app.module.ts
+
+// @Module({
+// 	imports: [
+// 	  // configure default options for passport
+// 	  PassportModule.register({
+// 		defaultStrategy: 'local',
+// 		session: true,
+// 	  }),
+// 	],
+// 	controllers: [
+// 	  UserController,
+// 	],
+// 	providers: [
+// 	  AuthService,
+
+// 	  // add our providers
+// 	  LocalStrategy, // simply by importing them will register them to passport (under the hood it calls `passport.use(...)`)
+// 	  LocalSerializer,
+// 	  LocalAuthGuard,
+// 	],
+//   })
+//   export class AppModule {}
