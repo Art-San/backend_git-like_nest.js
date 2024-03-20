@@ -34,6 +34,52 @@ export class GithubStrategy extends PassportStrategy(GitHubStrategy, 'github') {
 	}
 }
 
+// import { Injectable } from '@nestjs/common';
+// import { PassportStrategy } from '@nestjs/passport';
+// import { Profile, Strategy as GitHubStrategy } from 'passport-github2';
+// import { User } from '../models/user.model'; // Импортируйте вашу модель User
+
+// @Injectable()
+// export class GithubStrategy extends PassportStrategy(GitHubStrategy, 'github') {
+//  constructor() {
+// 	super({
+// 	  clientID: process.env.GITHUB_ID,
+// 	  clientSecret: process.env.GITHUB_SECRET,
+// 	  callbackURL: '/api/auth/github/callback',
+// 	  scope: ['user:email'],
+// 	});
+
+// 	// Определение serializeUser и deserializeUser внутри стратегии
+// 	this.serializeUser((user, done) => {
+// 	  done(null, user.id); // Сохраняем только ID пользователя в сессии
+// 	});
+
+// 	this.deserializeUser(async (id, done) => {
+// 	  const user = await User.findById(id); // Загружаем полный объект пользователя из базы данных
+// 	  done(null, user);
+// 	});
+//  }
+
+//  async validate(
+// 	accessToken: string,
+// 	refreshToken: string,
+// 	profile: Profile,
+// 	done: Function
+//  ) {
+// 	const user = {
+// 	  name: profile.displayName,
+// 	  username: profile.username,
+// 	  email: profile.emails[0].value,
+// 	  profileUrl: profile.profileUrl,
+// 	  avatarUrl: profile.photos[0].value,
+// 	  likedProfiles: [],
+// 	  likedBy: [],
+// 	};
+
+// 	done(null, user);
+//  }
+// }
+
 // 1  github.strategy.ts
 // import { Injectable } from '@nestjs/common'
 // import { PassportStrategy } from '@nestjs/passport'

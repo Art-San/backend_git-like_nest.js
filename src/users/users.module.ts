@@ -4,6 +4,8 @@ import { TypegooseModule } from '@m8a/nestjs-typegoose'
 import { UsersService } from './users.service'
 import { UsersController } from './users.controller'
 import { UserModel } from './users.model'
+import { AuthGuard } from 'src/auth/auth.guard'
+// import { AuthGuard } from 'src/auth/auth.guard'
 
 @Module({
 	imports: [
@@ -16,7 +18,7 @@ import { UserModel } from './users.model'
 			},
 		]),
 	],
-	providers: [UsersService],
+	providers: [UsersService, AuthGuard],
 	controllers: [UsersController],
 	exports: [UsersService], // Если UsersService нужно экспортировать для использования в других модулях
 })

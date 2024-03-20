@@ -4,7 +4,7 @@ import { InjectModel } from '@m8a/nestjs-typegoose'
 
 import { ModelType } from '@typegoose/typegoose/lib/types'
 import { AuthModel } from './auth.model'
-import { Response } from 'express'
+import { Response, Request } from 'express'
 
 @Injectable()
 export class AuthService {
@@ -45,15 +45,18 @@ export class AuthService {
 			throw new Error(error)
 		}
 	}
-	// async getHello(test: string) {
-	// 	console.log(1, 'test1', test)
-	// 	try {
-	// 		const oldUser = await this.authModel.findOne({ username: test })
-	// 		console.log(2, '1oldUser', oldUser)
-	// 		return oldUser
-	// 	} catch (error) {
-	// 		console.log(3, 'error', error.message)
-	// 		return { message: error.message }
-	// 	}
-	// }
+
+	check(req: Request, res: Response) {
+		if (req.isAuthenticated()) {
+			res.send({ user: req.user })
+		} else {
+			res.send({ user: null })
+		}
+	}
+
+	logout(req, res: Response) {
+		req.session.destroy((err) => {
+			res.json({ message: 'Logged out' })
+		})
+	}
 }

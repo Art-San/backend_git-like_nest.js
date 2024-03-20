@@ -1,8 +1,17 @@
-import { Controller, Get, Post, Param, Body, Req, Res } from '@nestjs/common'
+import {
+	Controller,
+	Get,
+	Post,
+	Param,
+	Req,
+	Res,
+	UseGuards,
+} from '@nestjs/common'
 import { ApiOkResponse, ApiProperty } from '@nestjs/swagger'
 import { UsersService } from './users.service'
 import { UserProfileResponseDto } from './dto/account.dto'
 import { AuthDto } from 'src/auth/dto/auth.dto'
+import { AuthGuard } from 'src/auth/auth.guard'
 
 @Controller('users')
 export class UsersController {
@@ -17,14 +26,21 @@ export class UsersController {
 	@ApiOkResponse({ type: UserProfileResponseDto })
 	likeProfile(
 		@Req() req,
-		@Res({ passthrough: true }) res: Response // passthrough: true Обязательная штука
+		@Res({ passthrough: true }) res: Response // passthrough: true Обязательная штук
 	) {
 		return this.usersService.likeProfile(req, res)
 	}
 
-	// @Get('/likes')
-	// @ApiOkResponse({ type: UserProfileResponseDto })
-	// getLikes(@Req() req) {
-	// 	return this.usersService.getProfile(req)
-	// }
+	@UseGuards(AuthGuard)
+	@Get('/test')
+	getProtectedResource() {
+		return 'Это защищенный ресурс'
+	}
+
+	@UseGuards(AuthGuard)
+	@Get('/likes')
+	@ApiOkResponse({ type: UserProfileResponseDto })
+	getLikes(@Req() req) {
+		return this.usersService.getProfile(req)
+	}
 }
