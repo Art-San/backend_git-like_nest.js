@@ -14,7 +14,7 @@ export class ExploreService {
 					//   }
 				}
 			)
-			console.log(1, this.configService.get('GITHUB_API_KEY_30DAY'))
+			// console.log(1, this.configService.get('GITHUB_API_KEY_30DAY'))
 
 			const repos = await response.json()
 

@@ -6,7 +6,7 @@ import { ModelType } from '@typegoose/typegoose/lib/types' // RG
 // import { Model } from 'mongoose'  // GPT
 
 const configService = new ConfigService()
-// @nestjs/common@"^6.10.1 || ^7.0.0" from nestjs-typegoose@7.1.38
+
 @Injectable()
 export class UsersService {
 	constructor(
@@ -34,6 +34,51 @@ export class UsersService {
 			return { userProfile, repos }
 		} catch (error) {
 			return { error: error.message }
+		}
+	}
+
+	async getLikes(req: any) {
+		try {
+			//   const user = await User.findById(req.user._id.toString())
+			//   res.status(200).json({ likedBy: user.likedBy })
+			// return user
+			return req.user._id
+		} catch (error) {
+			return { error: error.message }
+		}
+	}
+
+	async likeProfile(req: any, res: any) {
+		try {
+			const { username } = req.params
+			//   const user = await User.findById(req.user._id.toString())
+
+			//   const userToLike = await User.findOne({ username })
+
+			// if (!userToLike) {
+			// 	return res
+			// 		.status(404)
+			// 		.json({ error: 'Пользователь не является участником' })
+			// }
+
+			// if (user.likedProfiles.includes(userToLike.username)) {
+			// 	return res.status(400).json({ error: 'Пользователю уже понравилось' })
+			// }
+
+			// userToLike.likedBy.push({
+			// 	username: user.username,
+			// 	avatarUrl: user.avatarUrl,
+			// 	likedDate: Date.now(),
+			// })
+			// user.likedProfiles.push(userToLike.username)
+
+			// await userToLike.save();
+			// await user.save();
+			// await Promise.all([userToLike.save(), user.save()])
+
+			res.status(200).json({ message: 'User liked' })
+		} catch (error) {
+			res.status(500).json({ error: error.message })
 		}
 	}
 }

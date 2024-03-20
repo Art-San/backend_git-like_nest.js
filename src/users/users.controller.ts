@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common'
+import { Controller, Get, Post, Param, Body, Req, Res } from '@nestjs/common'
 import { ApiOkResponse, ApiProperty } from '@nestjs/swagger'
 import { UsersService } from './users.service'
 import { UserProfileResponseDto } from './dto/account.dto'
@@ -12,14 +12,19 @@ export class UsersController {
 	getProfile(@Param('username') username: string) {
 		return this.usersService.getProfile(username)
 	}
+
+	@Post('/like/:username')
+	@ApiOkResponse({ type: UserProfileResponseDto })
+	likeProfile(
+		@Req() req,
+		@Res({ passthrough: true }) res: Response // passthrough: true Обязательная штука
+	) {
+		return this.usersService.likeProfile(req, res)
+	}
+
 	// @Get('/likes')
 	// @ApiOkResponse({ type: UserProfileResponseDto })
-	// getLikes(@Param('username') username: string) {
-	// 	return this.usersService.getProfile(username)
-	// }
-	// @Post('/like/:username')
-	// @ApiOkResponse({ type: UserProfileResponseDto })
-	// likeProfile(@Param('username') username: string) {
-	// 	return this.usersService.getProfile(username)
+	// getLikes(@Req() req) {
+	// 	return this.usersService.getProfile(req)
 	// }
 }

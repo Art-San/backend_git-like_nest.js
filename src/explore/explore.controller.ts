@@ -1,4 +1,3 @@
-import { ServerResponseLanguage } from './../../dist/types/IServResLang.d'
 import { Controller, Param, Get } from '@nestjs/common'
 import { ApiOkResponse } from '@nestjs/swagger'
 import { ExploreService } from './explore.service'
