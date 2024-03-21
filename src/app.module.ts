@@ -8,16 +8,20 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypegooseModule, getConnectionToken } from '@m8a/nestjs-typegoose' // GPT
 
 import { getMongoConfig } from './config/mongo.config'
-import { Connection } from 'mongoose'
+
 import { AuthModule } from './auth/auth.module'
-import { AllExceptionsFilter } from './filters/all-exceptions.filter'
-import { APP_FILTER } from '@nestjs/core'
+
 import { ExploreModule } from './explore/explore.module'
+import { PassportModule } from '@nestjs/passport'
 
 // const configService = new ConfigService() // Вар-1 .ENV
 
 @Module({
 	imports: [
+		PassportModule.register({
+			defaultStrategy: 'local',
+			session: true,
+		}),
 		ConfigModule.forRoot({
 			isGlobal: true, //Вар-2.1 .ENV Это делает ConfigModule глобальным, и его не нужно импортировать в каждый модуль
 		}),
@@ -31,40 +35,15 @@ import { ExploreModule } from './explore/explore.module'
 		ExploreModule,
 	],
 	controllers: [AppController],
-	providers: [
-		{
-			provide: APP_FILTER,
-			useClass: AllExceptionsFilter,
-		},
-		AppService,
-	],
+	providers: [AppService],
 })
-// export class AppModule {}
-export class AppModule implements OnModuleInit {
-	constructor(
-		@Inject(getConnectionToken()) private readonly connection: Connection
-	) {}
-
-	onModuleInit() {
-		this.connection.on('connected', () => {
-			console.log('Mongoose connected to DB')
-		})
-
-		this.connection.on('error', (err) => {
-			console.error('Mongoose connection error:', err)
-		})
-
-		this.connection.on('disconnected', () => {
-			console.log('Mongoose disconnected')
-		})
-	}
-}
+export class AppModule {}
 
 // app.module.ts
 
 // @Module({
 // 	imports: [
-// 	  // configure default options for passport
+// 	  // настроить параметры по умолчанию для паспорта
 // 	  PassportModule.register({
 // 		defaultStrategy: 'local',
 // 		session: true,
@@ -76,8 +55,8 @@ export class AppModule implements OnModuleInit {
 // 	providers: [
 // 	  AuthService,
 
-// 	  // add our providers
-// 	  LocalStrategy, // simply by importing them will register them to passport (under the hood it calls `passport.use(...)`)
+// 	  // добавьте наших провайдеров
+// 	  LocalStrategy, // просто импортировав их, они зарегистрируются в паспорте (под капотом он вызывает `passport.use(...)`)
 // 	  LocalSerializer,
 // 	  LocalAuthGuard,
 // 	],
