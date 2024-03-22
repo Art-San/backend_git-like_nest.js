@@ -47,17 +47,17 @@ export class AuthService {
 	// 	}
 	// }
 
-	check(req: Request, res: Response) {
+	async check(req: Request) {
 		if (req.isAuthenticated()) {
-			res.send({ user: req.user })
+			return { user: req.user }
 		} else {
-			res.send({ user: null })
+			return { user: null }
 		}
 	}
 
-	logout(req, res: Response) {
-		req.session.destroy((err) => {
-			res.json({ message: 'Logged out' })
-		})
-	}
+	// logout(req, res: Response) {
+	// 	req.session.destroy((err) => {
+	// 		return { message: 'Logged out' }
+	// 	})
+	// }
 }

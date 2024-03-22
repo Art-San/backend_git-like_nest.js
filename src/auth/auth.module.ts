@@ -7,11 +7,14 @@ import { GithubStrategy } from './passport/github.strategy'
 import { ConfigModule } from '@nestjs/config'
 import { UserModel } from 'src/users/users.model'
 import { TypegooseModule } from '@m8a/nestjs-typegoose'
+import { SessionSerializer } from './passport/session.serializer'
 
 @Module({
 	controllers: [AuthController],
 	imports: [
-		PassportModule,
+		PassportModule.register({
+			session: true,
+		}),
 		TypegooseModule.forFeature([
 			{
 				typegooseClass: UserModel,
@@ -22,6 +25,6 @@ import { TypegooseModule } from '@m8a/nestjs-typegoose'
 		]),
 		ConfigModule,
 	],
-	providers: [AuthService, GithubStrategy],
+	providers: [AuthService, GithubStrategy, SessionSerializer],
 })
 export class AuthModule {}

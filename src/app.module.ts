@@ -18,10 +18,10 @@ import { PassportModule } from '@nestjs/passport'
 
 @Module({
 	imports: [
-		PassportModule.register({
-			defaultStrategy: 'local',
-			session: true,
-		}),
+		// PassportModule.register({
+		// 	defaultStrategy: 'local',
+		// 	session: true,
+		// }),
 		ConfigModule.forRoot({
 			isGlobal: true, //Вар-2.1 .ENV Это делает ConfigModule глобальным, и его не нужно импортировать в каждый модуль
 		}),
