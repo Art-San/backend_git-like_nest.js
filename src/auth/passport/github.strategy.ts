@@ -25,17 +25,20 @@ export class GithubStrategy extends PassportStrategy(GitHubStrategy, 'github') {
 			clientID: process.env.GITHUB_ID,
 			clientSecret: process.env.GITHUB_SECRET,
 			callbackURL: '/api/auth/github/callback',
+			passReqToCallback: true,
 			scope: ['user:email'],
 		})
 	}
 
 	async validate(
+		request: any,
 		accessToken: string,
 		refreshToken: string,
 		profile: Profile, // ?
 		// profile: any,
 		done: Function
 	) {
+		// console.log(0, 'request', request) //
 		// console.log(1, 'profile.username', profile.username) // Art-San
 		const user = await this.userModel.findOne({ username: profile.username })
 		if (!user) {
