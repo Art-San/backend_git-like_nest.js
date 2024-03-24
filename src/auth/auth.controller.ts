@@ -35,8 +35,6 @@ export class AuthController {
 	@Get('logout')
 	@ApiOkResponse()
 	async logout(@Req() req, @Res({ passthrough: true }) res: Response) {
-		// req.session.destroy((err) => {})
-		// return { message: 'Logged out' }
 		return this.authService.logout(req)
 	}
 

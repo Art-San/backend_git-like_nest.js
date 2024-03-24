@@ -37,9 +37,9 @@ export class UsersController {
 	@UseGuards(AuthGuard)
 	@Get('/test')
 	getProtectedResource() {
-		return 'Это защищенный ресурс'
+		return { message: 'Это защищенный ресурс' }
 	}
-
+	// http://localhost:5000/api/users/likes
 	@UseGuards(AuthGuard)
 	@Get('/likes')
 	@ApiOkResponse({ type: UserProfileResponseDto })

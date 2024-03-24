@@ -57,6 +57,6 @@ export class AuthService {
 
 	logout(req: Request) {
 		req.session.destroy((err) => {})
-		return { message: 'Logged out' }
+		return { message: 'Вышел из системы' }
 	}
 }
