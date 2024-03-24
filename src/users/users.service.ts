@@ -40,30 +40,30 @@ export class UsersService {
 	async likeProfile(req: any, res: any) {
 		try {
 			const { username } = req.params
-			//   const user =  await this.userModel.findById(req.user._id.toString())
+			const user = await this.userModel.findById(req.user._id.toString())
 
-			//   const userToLike = await this.userModel.findOne({ username })
+			const userToLike = await this.userModel.findOne({ username })
 
-			// if (!userToLike) {
-			// 	return res
-			// 		.status(404)
-			// 		.json({ error: 'Пользователь не является участником' })
-			// }
+			if (!userToLike) {
+				return res
+					.status(404)
+					.json({ error: 'Пользователь не является участником' })
+			}
 
-			// if (user.likedProfiles.includes(userToLike.username)) {
-			// 	return { error: 'Пользователю уже понравилось' }
-			// }
+			if (user.likedProfiles.includes(userToLike.username)) {
+				return { error: 'Пользователю уже понравилось' }
+			}
 
-			// userToLike.likedBy.push({
-			// 	username: user.username,
-			// 	avatarUrl: user.avatarUrl,
-			// 	// likedDate: Date.now(),
-			// })
-			// user.likedProfiles.push(userToLike.username)
+			userToLike.likedBy.push({
+				username: user.username,
+				avatarUrl: user.avatarUrl,
+				likedDate: Date.now(),
+			})
+			user.likedProfiles.push(userToLike.username)
 
-			// await userToLike.save();
-			// await user.save();
-			// await Promise.all([userToLike.save(), user.save()])
+			await userToLike.save()
+			await user.save()
+			await Promise.all([userToLike.save(), user.save()])
 
 			return { message: `Пользователю понравилось ${username}` }
 		} catch (error) {
