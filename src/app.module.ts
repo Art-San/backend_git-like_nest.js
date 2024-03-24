@@ -30,35 +30,11 @@ import { PassportModule } from '@nestjs/passport'
 			inject: [ConfigService],
 			useFactory: getMongoConfig,
 		}),
-		UsersModule,
 		AuthModule,
+		UsersModule,
 		ExploreModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
 })
 export class AppModule {}
-
-// app.module.ts
-
-// @Module({
-// 	imports: [
-// 	  // настроить параметры по умолчанию для паспорта
-// 	  PassportModule.register({
-// 		defaultStrategy: 'local',
-// 		session: true,
-// 	  }),
-// 	],
-// 	controllers: [
-// 	  UserController,
-// 	],
-// 	providers: [
-// 	  AuthService,
-
-// 	  // добавьте наших провайдеров
-// 	  LocalStrategy, // просто импортировав их, они зарегистрируются в паспорте (под капотом он вызывает `passport.use(...)`)
-// 	  LocalSerializer,
-// 	  LocalAuthGuard,
-// 	],
-//   })
-//   export class AppModule {}

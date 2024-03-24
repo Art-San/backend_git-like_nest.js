@@ -5,16 +5,7 @@ import { Profile, Strategy as GitHubStrategy } from 'passport-github2'
 
 import { InjectModel } from '@m8a/nestjs-typegoose'
 import { ModelType } from '@typegoose/typegoose/lib/types'
-import { UserModel } from 'src/users/users.model'
-
-// Настройка Passport.js
-// passport.serializeUser(function (user, done) {
-// 	done(null, user)
-// })
-
-// passport.deserializeUser(function (obj, done) {
-// 	done(null, obj)
-// })
+import { UserModel } from 'src/users/model/users.model'
 
 @Injectable()
 export class GithubStrategy extends PassportStrategy(GitHubStrategy, 'github') {

@@ -5,7 +5,7 @@ import { AuthService } from './auth.service'
 import { AuthController } from './auth.controller'
 import { GithubStrategy } from './passport/github.strategy'
 import { ConfigModule } from '@nestjs/config'
-import { UserModel } from 'src/users/users.model'
+import { UserModel } from 'src/users/model/users.model'
 import { TypegooseModule } from '@m8a/nestjs-typegoose'
 import { SessionSerializer } from './passport/session.serializer'
 

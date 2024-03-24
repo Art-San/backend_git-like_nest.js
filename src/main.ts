@@ -53,21 +53,3 @@ async function bootstrap() {
 	await app.listen(5000)
 }
 bootstrap()
-
-// main.ts
-// async function bootstrap() {
-// 	const app = await NestFactory.create(AppModule);
-
-// 	// add 'express-session' (npm install express-session)
-// 	app.use(session({
-// 	  secret: 'hello-world',
-// 	}));
-
-// 	app.use(cookieParser());
-
-// 	// init 'passport' (npm install passport)
-// 	app.use(passport.initialize());
-// 	app.use(passport.session());
-
-// 	await app.listen(3000);
-//   }

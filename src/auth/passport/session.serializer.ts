@@ -12,6 +12,7 @@ export class SessionSerializer extends PassportSerializer {
 	}
 }
 
+// Еще вариант
 // import { Injectable } from '@nestjs/common'
 // import { PassportSerializer } from '@nestjs/passport'
 

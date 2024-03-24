@@ -5,7 +5,7 @@ import { InjectModel } from '@m8a/nestjs-typegoose'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 
 import { Response, Request } from 'express'
-import { UserModel } from 'src/users/users.model'
+import { UserModel } from 'src/users/model/users.model'
 
 @Injectable()
 export class AuthService {
@@ -55,9 +55,8 @@ export class AuthService {
 		}
 	}
 
-	// logout(req, res: Response) {
-	// 	req.session.destroy((err) => {
-	// 		return { message: 'Logged out' }
-	// 	})
-	// }
+	logout(req: Request) {
+		req.session.destroy((err) => {})
+		return { message: 'Logged out' }
+	}
 }

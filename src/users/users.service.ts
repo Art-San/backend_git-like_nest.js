@@ -1,7 +1,7 @@
 import { InjectModel } from '@m8a/nestjs-typegoose'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { UserModel } from './users.model'
+import { UserModel } from './model/users.model'
 import { ModelType } from '@typegoose/typegoose/lib/types' // RG
 // import { Model } from 'mongoose'  // GPT
 

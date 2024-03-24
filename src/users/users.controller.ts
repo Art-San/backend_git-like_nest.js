@@ -10,8 +10,9 @@ import {
 import { ApiOkResponse, ApiProperty } from '@nestjs/swagger'
 import { UsersService } from './users.service'
 import { UserProfileResponseDto } from './dto/account.dto'
-import { AuthDto } from 'src/auth/dto/auth.dto'
-import { AuthGuard } from 'src/auth/auth.guard'
+
+import { AuthGuard } from 'src/auth/guards/auth.guard'
+import { AuthenticatedGuard } from 'src/auth/guards/authenticated.guard'
 
 @Controller('users')
 export class UsersController {
@@ -31,6 +32,8 @@ export class UsersController {
 		return this.usersService.likeProfile(req, res)
 	}
 
+	// http://localhost:5000/api/users/test
+	// @UseGuards(AuthenticatedGuard)
 	@UseGuards(AuthGuard)
 	@Get('/test')
 	getProtectedResource() {
