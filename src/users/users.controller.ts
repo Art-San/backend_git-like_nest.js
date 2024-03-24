@@ -33,8 +33,8 @@ export class UsersController {
 	}
 
 	// http://localhost:5000/api/users/test
-	// @UseGuards(AuthenticatedGuard)
-	@UseGuards(AuthGuard)
+	@UseGuards(AuthenticatedGuard)
+	// @UseGuards(AuthGuard)
 	@Get('/test')
 	getProtectedResource() {
 		return { message: 'Это защищенный ресурс' }

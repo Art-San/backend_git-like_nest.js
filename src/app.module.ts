@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module'
 
 import { ExploreModule } from './explore/explore.module'
 import { PassportModule } from '@nestjs/passport'
+import { Connection } from 'mongoose'
 
 // const configService = new ConfigService() // Вар-1 .ENV
 
@@ -37,4 +38,23 @@ import { PassportModule } from '@nestjs/passport'
 	controllers: [AppController],
 	providers: [AppService],
 })
-export class AppModule {}
+// export class AppModule {}
+export class AppModule implements OnModuleInit {
+	constructor(
+		@Inject(getConnectionToken()) private readonly connection: Connection
+	) {}
+
+	onModuleInit() {
+		this.connection.on('connected', () => {
+			console.log('Mongoose connected to DB')
+		})
+
+		this.connection.on('error', (err) => {
+			console.error('Mongoose connection error:', err)
+		})
+
+		this.connection.on('disconnected', () => {
+			console.log('Mongoose disconnected')
+		})
+	}
+}

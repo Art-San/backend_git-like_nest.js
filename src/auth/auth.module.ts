@@ -12,9 +12,9 @@ import { SessionSerializer } from './passport/session.serializer'
 @Module({
 	controllers: [AuthController],
 	imports: [
-		PassportModule.register({
-			session: true,
-		}),
+		// PassportModule.register({
+		// 	session: true,
+		// }),
 		TypegooseModule.forFeature([
 			{
 				typegooseClass: UserModel,
