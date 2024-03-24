@@ -32,42 +32,31 @@ export class UserModel extends TimeStamps {
 			avatarUrl: {
 				type: String
 			}
-			// likedDate: {
-			// 	type: globalThis.Date,
-			// 	default: Date.now
-			// }
+
+			likedDate: {
+				type: Date
+				default: typeof Date.now
+			}
 		},
 	]
 }
 
-// import { prop, getUserModelForClass } from '@typegoose/typegoose'
+// likedDate: {
+// 	type: globalThis.Date // Используем globalThis.Date для явного указания глобального объекта Date
+// 	default: () => typeof globalThis.Date.now // Используем globalThis.Date.now() для получения текущего времени
+// }
+
+// import { prop } from '@typegoose/typegoose'
 // import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses'
 
-// // Определение интерфейса для объектов в массиве likedBy
-// interface LikedBy {
-// 	username: string
-// 	avatarUrl: string
-// 	likedDate: Date
-// }
+// export interface UserModel extends Base {}
 
-// // Класс, реализующий интерфейс LikedBy
-// export class LikedByClass implements LikedBy {
-// 	username: string
-// 	avatarUrl: string
-// 	likedDate: Date
-// }
-
-// export interface UserUserModel extends Base {} // Base добавляет id
-
-// export class UserUserModel extends TimeStamps {
-// 	@prop({ required: true, unique: true })
+// export class UserModel extends TimeStamps {
+// 	@prop({ unique: true, required: true })
 // 	username: string
 
 // 	@prop({ default: '' })
 // 	name: string
-
-// 	@prop({ default: '' })
-// 	email: string
 
 // 	@prop({ required: true })
 // 	profileUrl: string
@@ -75,11 +64,26 @@ export class UserModel extends TimeStamps {
 // 	@prop()
 // 	avatarUrl: string
 
-// 	@prop({ type: [String], default: [] })
-// 	likedProfiles: string[]
+// 	@prop()
+// 	email: string
 
-// 	@prop({ type: () => [LikedByClass] })
-// 	likedBy: LikedByClass[]
+// 	@prop({ default: [] })
+// 	likedProfiles: [string]
+
+// 	@prop()
+// 	likedBy: [
+// 		{
+// 			username: {
+// 				type: String,
+// 				required: true
+// 			},
+// 			avatarUrl: {
+// 				type: String
+// 			},
+// 			likedDate: {
+// 				type: Date,
+// 				default: () => Date.now() // Исправлено на стрелочную функцию
+// 			}
+// 		},
+// 	]
 // }
-
-// const userUserModel = getUserModelForClass(UserUserModel)

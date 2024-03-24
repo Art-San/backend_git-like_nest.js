@@ -14,15 +14,13 @@ import { AuthModule } from './auth/auth.module'
 import { ExploreModule } from './explore/explore.module'
 import { PassportModule } from '@nestjs/passport'
 import { Connection } from 'mongoose'
+import { GithubStrategy } from './auth/passport/github.strategy'
+import { SessionSerializer } from './auth/passport/session.serializer'
 
 // const configService = new ConfigService() // Вар-1 .ENV
 
 @Module({
 	imports: [
-		// PassportModule.register({
-		// 	defaultStrategy: 'local',
-		// 	session: true,
-		// }),
 		ConfigModule.forRoot({
 			isGlobal: true, //Вар-2.1 .ENV Это делает ConfigModule глобальным, и его не нужно импортировать в каждый модуль
 		}),

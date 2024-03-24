@@ -43,7 +43,7 @@ export class UsersController {
 	@UseGuards(AuthGuard)
 	@Get('/likes')
 	@ApiOkResponse({ type: UserProfileResponseDto })
-	getLikes(@Req() req) {
-		return this.usersService.getProfile(req)
+	getLikes(@Req() req, @Res({ passthrough: true }) res: Response) {
+		return this.usersService.getLikes(req, res)
 	}
 }
