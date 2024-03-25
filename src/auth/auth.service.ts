@@ -26,6 +26,7 @@ export class AuthService {
 		// return { message: `Привет ${user.username}` }
 	}
 
+	// Регистрация проходит GithubStrategy
 	// async register(dto: AuthDto, res: Response) {
 	// 	try {
 	// 		const oldUser = await this.userModel.findOne({ username: dto.username })
