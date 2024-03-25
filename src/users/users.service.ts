@@ -12,7 +12,7 @@ export class UsersService {
 		@InjectModel(UserModel) private userModel: ModelType<UserModel>
 	) {}
 
-	async getProfile(username: string) {
+	async getUserProfileAndRepos(username: string) {
 		try {
 			const userRes = await fetch(`https://api.github.com/users/${username}`, {
 				headers: {
@@ -36,9 +36,9 @@ export class UsersService {
 		}
 	}
 
-	async likeProfile(req: any, res: any) {
+	async likeProfile(username: string, req: any) {
 		try {
-			const { username } = req.params
+			// const { username } = req.params
 			const user = await this.userModel.findById(req.user._id.toString())
 
 			const userToLike = await this.userModel.findOne({ username })
@@ -68,7 +68,7 @@ export class UsersService {
 		}
 	}
 
-	async getLikes(req: any, res: any) {
+	async getLikes(req: any) {
 		try {
 			const user = await this.userModel.findById(req.user._id.toString())
 			return { likedBy: user.likedBy }

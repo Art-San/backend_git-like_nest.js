@@ -1,3 +1,4 @@
+import { APP_FILTER } from '@nestjs/core'
 import { Module, OnModuleInit, Inject } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -8,6 +9,7 @@ import { getMongoConfig } from './config/mongo.config'
 import { AuthModule } from './auth/auth.module'
 import { ExploreModule } from './explore/explore.module'
 import { Connection } from 'mongoose'
+import { AllExceptionsFilter } from './filters/all-exceptions.filter'
 
 // const configService = new ConfigService() // Вар-1 .ENV
 
@@ -26,7 +28,13 @@ import { Connection } from 'mongoose'
 		ExploreModule,
 	],
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [
+		{
+			provide: APP_FILTER,
+			useClass: AllExceptionsFilter,
+		},
+		AppService,
+	],
 })
 // export class AppModule {}
 export class AppModule implements OnModuleInit {

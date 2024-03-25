@@ -5,14 +5,15 @@ import { ConfigService } from '@nestjs/config'
 export class ExploreService {
 	constructor(private readonly configService: ConfigService) {}
 	async explorePopularRepos(language: string) {
-		console.log(1, 'language', language)
 		try {
 			const response = await fetch(
 				`https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=2`,
 				{
-					//   headers: {
-					//     authorization: `token ${process.env.GITHUB_API_KEY_30DAY}`
-					//   }
+					headers: {
+						authorization: this.configService.get<string>(
+							'GITHUB_API_KEY_30DAY'
+						),
+					},
 				}
 			)
 
