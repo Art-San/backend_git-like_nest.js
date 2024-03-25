@@ -3,26 +3,18 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { UsersModule } from './users/users.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
-
-// import { TypegooseModule, getConnectionToken } from 'nestjs-typegoose' // RG
-import { TypegooseModule, getConnectionToken } from '@m8a/nestjs-typegoose' // GPT
-
+import { TypegooseModule, getConnectionToken } from '@m8a/nestjs-typegoose'
 import { getMongoConfig } from './config/mongo.config'
-
 import { AuthModule } from './auth/auth.module'
-
 import { ExploreModule } from './explore/explore.module'
-import { PassportModule } from '@nestjs/passport'
 import { Connection } from 'mongoose'
-import { GithubStrategy } from './auth/passport/github.strategy'
-import { SessionSerializer } from './auth/passport/session.serializer'
 
 // const configService = new ConfigService() // Вар-1 .ENV
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({
-			isGlobal: true, //Вар-2.1 .ENV Это делает ConfigModule глобальным, и его не нужно импортировать в каждый модуль
+			isGlobal: true,
 		}),
 		TypegooseModule.forRootAsync({
 			imports: [ConfigModule],

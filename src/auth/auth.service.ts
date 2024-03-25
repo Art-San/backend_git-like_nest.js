@@ -6,6 +6,7 @@ import { ModelType } from '@typegoose/typegoose/lib/types'
 
 import { Response, Request } from 'express'
 import { UserModel } from 'src/users/model/users.model'
+import { SessionInfo } from './session-info.decorator'
 
 @Injectable()
 export class AuthService {
@@ -48,6 +49,7 @@ export class AuthService {
 	// }
 
 	async check(req: Request) {
+		console.log(1, '', req.isAuthenticated())
 		if (req.isAuthenticated()) {
 			return { user: req.user }
 		} else {

@@ -1,19 +1,20 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
 import { Observable } from 'rxjs'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+	constructor(private configService: ConfigService) {}
 	canActivate(
 		context: ExecutionContext
 	): boolean | Promise<boolean> | Observable<boolean> {
 		const request = context.switchToHttp().getRequest()
-		console.log(1, 'AuthGuard request', request.isAuthenticated())
 		if (request.isAuthenticated()) {
 			return true
 		} else {
-			// Перенаправление на главную страниц
 			const response = context.switchToHttp().getResponse()
-			response.redirect('http://localhost:3000')
+			response.redirect(this.configService.get('CLIENT_BASE_URL') + '/login')
+			// response.redirect(`${process.env.CLIENT_BASE_URL}/login`)
 			return false
 		}
 	}

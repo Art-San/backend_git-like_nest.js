@@ -13,7 +13,7 @@ import { SessionSerializer } from './passport/session.serializer'
 			{
 				typegooseClass: UserModel,
 				schemaOptions: {
-					collection: 'Users',
+					collection: 'users',
 				},
 			},
 		]),

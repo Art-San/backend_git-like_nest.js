@@ -1,4 +1,3 @@
-// users.module.ts
 import { Module } from '@nestjs/common'
 import { TypegooseModule } from '@m8a/nestjs-typegoose'
 import { UsersService } from './users.service'
@@ -13,7 +12,7 @@ import { UserModel } from './model/users.model'
 			{
 				typegooseClass: UserModel,
 				schemaOptions: {
-					collection: 'Users',
+					collection: 'users',
 				},
 			},
 		]),

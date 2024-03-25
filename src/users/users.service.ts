@@ -9,10 +9,9 @@ const configService = new ConfigService()
 @Injectable()
 export class UsersService {
 	constructor(
-		// @InjectModel(UserModel) private readonly userModel: ModelType<UserModel>
 		@InjectModel(UserModel) private userModel: ModelType<UserModel>
-	) {} // RG
-	// constructor(@InjectModel(User) private userModel: Model<User>) {} // GPT
+	) {}
+
 	async getProfile(username: string) {
 		try {
 			const userRes = await fetch(`https://api.github.com/users/${username}`, {
@@ -45,19 +44,17 @@ export class UsersService {
 			const userToLike = await this.userModel.findOne({ username })
 
 			if (!userToLike) {
-				return res
-					.status(404)
-					.json({ error: 'Пользователь не является участником' })
+				return { error: `Пользователь: ${username} не является участником` }
 			}
 
 			if (user.likedProfiles.includes(userToLike.username)) {
-				return { error: 'Пользователю уже понравилось' }
+				return { error: `Пользователь: ${username} уже понравилось` }
 			}
 
 			userToLike.likedBy.push({
 				username: user.username,
 				avatarUrl: user.avatarUrl,
-				likedDate: Date.now(),
+				likedDate: new Date(Date.now()),
 			})
 			user.likedProfiles.push(userToLike.username)
 
@@ -73,10 +70,7 @@ export class UsersService {
 
 	async getLikes(req: any, res: any) {
 		try {
-			console.log(1, req.user._id)
 			const user = await this.userModel.findById(req.user._id.toString())
-			//   res.status(200).json({ likedBy: user.likedBy })
-			// return user
 			return { likedBy: user.likedBy }
 		} catch (error) {
 			return { error: error.message }
@@ -84,5 +78,5 @@ export class UsersService {
 	}
 }
 
-// https://api.github.com/users/Art-San
+// https://api.github.com/users/Art-Sa
 // https://api.github.com/users/Art-San/repos?per_page=1
