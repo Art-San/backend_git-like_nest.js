@@ -1,8 +1,3 @@
-// likedDate: {
-// 	type: globalThis.Date // Используем globalThis.Date для явного указания глобального объекта Date
-// 	default: () => typeof globalThis.Date.now // Используем globalThis.Date.now() для получения текущего времени
-// }
-
 import { prop } from '@typegoose/typegoose'
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses'
 
