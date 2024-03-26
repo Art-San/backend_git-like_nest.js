@@ -32,7 +32,7 @@ export class AuthController {
 		@Req() req,
 		@Res({ passthrough: true }) res: Response // passthrough: true Обязательная штука
 	) {
-		return res.redirect('/likes')
+		return res.redirect('/')
 	}
 
 	// http://localhost:5000/api/auth/check

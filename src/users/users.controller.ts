@@ -30,6 +30,7 @@ export class UsersController {
 		return this.usersService.likeProfile(username, req)
 	}
 
+	// http://localhost:3000/likes
 	// http://localhost:5000/api/users/likes
 	@UseGuards(AuthGuard)
 	@Get('/likes')

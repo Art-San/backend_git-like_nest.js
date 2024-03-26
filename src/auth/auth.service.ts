@@ -50,7 +50,7 @@ export class AuthService {
 	// }
 
 	async check(req: Request) {
-		console.log(1, '', req.isAuthenticated())
+		// console.log(1, '', req.isAuthenticated())
 		if (req.isAuthenticated()) {
 			return { user: req.user }
 		} else {
