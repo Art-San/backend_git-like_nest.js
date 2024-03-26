@@ -19,6 +19,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 			statusCode: status,
 			timestamp: new Date().toISOString(),
 			path: request.url,
+			massage: 'из AllExceptionsFilter',
 		})
 	}
 }
@@ -35,7 +36,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 // }
 // bootstrap();
 
-// или модуле
+// или в модуле
 // import { Module } from '@nestjs/common';
 // import { APP_FILTER } from '@nestjs/core';
 // import { AllExceptionsFilter } from './all-exceptions.filter';

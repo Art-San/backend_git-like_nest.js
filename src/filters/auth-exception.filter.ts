@@ -23,10 +23,23 @@ export class AuthExceptionFilter implements ExceptionFilter {
 				statusCode: status,
 				timestamp: new Date().toISOString(),
 				path: request.url,
+				massage: 'из AuthExceptionFilter',
 			})
 		}
 	}
 }
+
+// @Module({
+//  // ... другие свойства модуля
+//  providers: [
+// 	// ... другие провайдеры
+// 	{
+// 	  provide: APP_FILTER,
+// 	  useClass: AuthExceptionFilter,
+// 	},
+//  ],
+// })
+// export class YourModule {}
 
 // import { Controller, Get, UseGuards, UseFilters } from '@nestjs/common'
 // import { AuthGuard } from '@nestjs/passport'
