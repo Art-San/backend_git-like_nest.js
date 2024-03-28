@@ -30,6 +30,7 @@ async function bootstrap() {
 	app.use(passport.initialize())
 	app.use(passport.session())
 
-	await app.listen(5000)
+	await app.listen(process.env.PORT)
+	console.log(`backend runs on port ${process.env.PORT}`)
 }
 bootstrap()

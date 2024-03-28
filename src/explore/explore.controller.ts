@@ -1,9 +1,10 @@
 import { Controller, Param, Get, UseGuards } from '@nestjs/common'
-import { ApiOkResponse } from '@nestjs/swagger'
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { ExploreService } from './explore.service'
 import { ServerResponseLanguageDto } from './dto/explore.dto'
 import { AuthGuard } from 'src/auth/guards/auth.guard'
 
+@ApiTags('Explore')
 @Controller('explore')
 export class ExploreController {
 	constructor(private readonly exploreService: ExploreService) {}

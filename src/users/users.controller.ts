@@ -7,11 +7,12 @@ import {
 	Res,
 	UseGuards,
 } from '@nestjs/common'
-import { ApiOkResponse, ApiProperty } from '@nestjs/swagger'
+import { ApiOkResponse, ApiProperty, ApiTags } from '@nestjs/swagger'
 import { UsersService } from './users.service'
 import { UserProfileResponseDto } from './dto/account.dto'
 import { AuthGuard } from 'src/auth/guards/auth.guard'
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
 	constructor(private readonly usersService: UsersService) {}
